@@ -1,0 +1,23 @@
+# .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+*.log
+
+# Environnement virtuel
+env/
+venv/
+ENV/
+.venv/
+environnementvirtuel/
+
+# IDEs
+.vscode/
+.idea/
+
+# Fichiers sensibles
+.env
