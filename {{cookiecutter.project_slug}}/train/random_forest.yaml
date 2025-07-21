@@ -1,0 +1,3 @@
+train_split: 0.8
+shuffle: true
+random_state: 42

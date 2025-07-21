@@ -1,0 +1,11 @@
+2025-07-21 02:18:07 - app_logger - INFO - Démarrage du programme
+2025-07-21 02:18:07 - app_logger - DEBUG - Tentative de division 10 / 2
+2025-07-21 02:18:07 - app_logger - INFO - Résultat de 10 / 2 = 5.0
+2025-07-21 02:18:07 - app_logger - DEBUG - Tentative de division 5 / 0
+2025-07-21 02:18:07 - app_logger - ERROR - Division par zéro !
+Traceback (most recent call last):
+  File "C:\Users\user\Documents\MASTER ISI\DSIA2\MLOPS\m2dsia_web_app\main.py", line 15, in division
+    result = a / b
+             ~~^~~
+ZeroDivisionError: division by zero
+2025-07-21 02:18:07 - app_logger - WARNING - Fin du programme

@@ -1,0 +1,2 @@
+model_config: "configs/models/config.yaml"
+train_config: "train/random_forest.yaml"
