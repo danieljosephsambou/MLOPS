@@ -1,27 +1,10 @@
-import pandas as pd
 import joblib
-from app.preprocess import build_pipeline
+import os
+import numpy as np
 
-def train_and_save_model():
-    df = pd.read_csv("data/house_data.csv")
+def load_model(model_path: str = "models/house_price_model.pkl"):
+    return joblib.load(model_path)
 
-    selected_columns = [
-    "bedrooms", "bathrooms", "sqft_living", "sqft_lot",
-    "floors", "waterfront", "view", "condition",
-    "sqft_above", "sqft_basement", "yr_built", "yr_renovated"
-    ]
-
-
-    y = df["price"]
-    X = df[selected_columns]
-
-    numeric = X.select_dtypes(include="number").columns.tolist()
-    categorical = X.select_dtypes(include="object").columns.tolist()
-
-    pipeline = build_pipeline(numeric, categorical)
-    model = pipeline.fit(X, y)
-
-    joblib.dump(model, "model/model.pkl")
-
-if __name__ == "__main__":
-    train_and_save_model()
+def predict_price(model, input_data: dict) -> float:
+    features = np.array([list(input_data.values())])
+    return model.predict(features)[0]

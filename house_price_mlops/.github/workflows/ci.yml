@@ -1,19 +1,23 @@
-name: CI
+name: CI Pipeline
 
-on: [push]
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build:
+  test-and-build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Setup Python
+    - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: '3.11'
+        python-version: 3.11
 
     - name: Install dependencies
       run: |
@@ -21,4 +25,4 @@ jobs:
 
     - name: Run tests
       run: |
-        pytest
+        pytest tests/

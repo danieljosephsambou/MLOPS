@@ -1,45 +1,24 @@
-from fastapi import FastAPI, Request
-from pydantic import BaseModel
-import joblib
+from fastapi import FastAPI
+from app.model import load_model, predict_price
+from app.schemas import HouseData, PredictionResponse
+from loguru import logger
 import time
-import logging
-import yaml
-from logger.filters import InfoOnlyFilter
-import pandas as pd
-
-# Load logging config
-with open("logger/logging_config.yaml") as f:
-    config = yaml.safe_load(f)
-    logging.config.dictConfig(config)
-
-logger = logging.getLogger("app_logger")
 
 app = FastAPI()
-model = joblib.load("model/model.pkl")
+model = load_model()
 
-class HouseFeatures(BaseModel):
-    bedrooms: int
-    bathrooms: float
-    sqft_living: int
-    sqft_lot: int
-    floors: float
-    waterfront: int
-    view: int
-    condition: int
-    sqft_above: int
-    sqft_basement: int
-    yr_built: int
-    yr_renovated: int
-
-@app.post("/predict/")
-async def predict(features: HouseFeatures, request: Request):
+@app.post("/predict", response_model=PredictionResponse)
+def predict(data: HouseData):
     start_time = time.time()
-
-    input_dict = features.dict()
-    input_df = pd.DataFrame([input_dict])  # transforme en DataFrame à une ligne
-    prediction = model.predict(input_df)[0]
-
+    input_data = data.dict()
+    prediction = predict_price(model, input_data)
     duration = time.time() - start_time
-    logger.info(f"{request.url.path} | INPUT: {input_dict} | PREDICTION: {prediction} | duration: {duration:.4f}s")
-    
+
+    logger.info({
+        "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+        "inputs": input_data,
+        "prediction": prediction,
+        "duration": duration
+    })
+
     return {"prediction": prediction}

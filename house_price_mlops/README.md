@@ -1,17 +1,30 @@
-# 🏡 House Price MLOps Project
+# 🏠 House Price Prediction - MLOps Project
 
-Ce projet a été réalisé dans le cadre du Master ISI (DSIA2) pour mettre en pratique les bonnes pratiques de MLOps sur un cas concret : prédire le prix d’une maison à partir de ses caractéristiques.
-
----
+Ce projet utilise le dataset [HouseData de Kaggle](https://www.kaggle.com/datasets/shree1992/housedata) pour prédire le prix des maisons.
 
 ## 🎯 Objectif
 
-> Créer un pipeline complet de Machine Learning, déployé via une API REST, avec :
+Mettre en place une solution MLOps complète incluant :
 
-- Entraînement d’un modèle
-- Serveur FastAPI pour la prédiction
-- Logging structuré
+- Prétraitement et entraînement d’un modèle ML
+- Déploiement via API REST (FastAPI)
 - Dockerisation
-- CI/CD (GitHub Actions)
+- CI/CD avec GitHub Actions
+- Logging structuré
 
----
+## 🧱 Architecture du projet
+
+house_price_mlops/
+├── app/ # API FastAPI
+├── data/ # Dataset
+├── models/ # Modèle entraîné
+├── notebooks/ # Analyse exploratoire
+├── pipeline/ # Prétraitement et entraînement
+├── tests/ # Tests unitaires
+├── Dockerfile # Dockerisation
+├── .github/workflows/ # CI/CD GitHub Actions
+
+## 🚀 Lancer l’API
+
+```bash
+uvicorn app.main:app --reload
